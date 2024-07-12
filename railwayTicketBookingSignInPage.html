@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Ticket Booking</title>
+    <style>
+        body {
+            background-image: url('https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: 'Cambria', 'Cochin', 'Georgia', 'Times', 'Times New Roman', serif;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            color: #fff;
+            background-color: rgba(0, 116, 217, 0.7);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px 0;
+            text-shadow: 1px 1px 2px #000;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        fieldset {
+            border: 3px solid #0074D9;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        legend {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #0074D9;
+            text-shadow: 1px 1px 2px #fff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        datalist,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #0074D9;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        .social-media {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .social-media a {
+            margin: 0 10px;
+            color: #0074D9;
+            font-size: 1.5em;
+            text-decoration: none;
+        }
+
+        .social-media a:hover {
+            color: #005bb5;
+        }
+
+        .social-media a i {
+            font-size: 2em;
+        }
+
+        #password-strength {
+            font-weight: bold;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const form = document.getElementById('sign-in-form');
+            const password = document.getElementById('password').value;
+            const passwordStrength = zxcvbn(password).score;
+
+            if (passwordStrength < 3) {
+                alert("Password is too weak. Please choose a stronger password.");
+                document.getElementById('password-strength').textContent = "Weak or Medium password";
+            } else {
+                alert("Form submitted successfully!");
+                document.getElementById('password-strength').textContent = "";
+                form.submit();
+            }
+        }
+
+        function updatePasswordStrength() {
+            const password = document.getElementById('password').value;
+            const passwordStrength = zxcvbn(password).score;
+            const strengthText = ['Very Weak', 'Weak', 'Medium', 'Strong', 'Very Strong'];
+
+            document.getElementById('password-strength').textContent = strengthText[passwordStrength];
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Welcome to Railway Ticket Booking</h1>
+    <h2>Your Journey is Our Responsibility</h2>
+    <fieldset>
+        <legend>Sign in</legend>
+        <form id="sign-in-form" onsubmit="handleSubmit(event)">
+            <label for="name">Name:</label>
+            <input type="text" id="name" placeholder="Enter your name" pattern="[A-Za-z\s]+" title="Name should only contain letters and spaces." required>
+            <label for="email">E-Mail:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <label for="phone">Mobile:</label>
+            <input type="tel" id="phone" placeholder="Enter your phone number" pattern="[0-9]{10}" title="Phone number should be 10 digits." required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password" oninput="updatePasswordStrength()" required>
+            <div id="password-strength"></div>
+            <label for="place">Place:</label>
+            <input list="places" id="place" placeholder="Enter your location" required>
+            <datalist id="places">
+                <option value="Vikkaravandi">
+                <option value="Karur">
+                <option value="Thirunelveli">
+                <option value="Madurai">
+                <option value="Thanjavore">
+                <option value="Palakad">
+            </datalist>
+            <label for="train">Train:</label>
+            <select id="train" required>
+                <option value="" disabled selected>Select your train</option>
+                <option value="train1">Train 1</option>
+                <option value="train2">Train 2</option>
+                <option value="train3">Train 3</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+    </fieldset>
+    <div class="social-media">
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
